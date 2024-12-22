@@ -1,0 +1,20 @@
+OPT = -Wall -g #-fsanitize=address -fsanitize=bounds
+
+all: 
+	@echo "Usage:"
+	@echo "  make compile"
+	@echo "  make run ARGS='<number of workers/threads> <int1> <int2> ... <intN>'"
+	@echo "  make heavytest ARGS='<number_of_times> <max_threads> <thread_step> <max_ints_num> <max_int_value>'"
+	@echo "  make cleanall"
+
+compile: PrimalityTesterWithSemaphores.c ../assignment1/binarySemaphores.c
+	gcc $(OPT) PrimalityTesterWithSemaphores.c ../assignment1/binarySemaphores.c -o PrimalityTester
+
+run: compile
+	./PrimalityTester $(ARGS)
+ 
+heavytest: compile heavytest.py
+	python3 heavytest.py $(ARGS)
+
+cleanall:
+	rm -f PrimalityTester *.std

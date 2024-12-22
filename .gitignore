@@ -1,0 +1,6 @@
+*.std
+*.bin
+*.o
+*.json
+*.tmp
+*.copy
